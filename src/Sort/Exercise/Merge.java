@@ -1,5 +1,6 @@
 package Sort.Exercise;
 
+
 public class Merge {
     public static Comparable[] Merge(Comparable[] a, Comparable[] b){
         Comparable[] c = new Comparable[a.length+b.length];

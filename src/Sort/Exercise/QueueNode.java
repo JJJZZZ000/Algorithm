@@ -50,6 +50,12 @@ public class QueueNode<Item> implements Iterable<Item>{
         return item;
     }
 
+    public Item first(){
+        return first.item;
+    }
+
+//    public void add(Node q){}
+
     public Iterator<Item> iterator(){
         return new ListIterator();
     }
