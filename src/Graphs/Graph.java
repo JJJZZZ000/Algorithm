@@ -1,6 +1,10 @@
 package Graphs;
 
-import Function.Bag;
+//import Function.Bag;
+import edu.princeton.cs.algs4.Bag;
+import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.StdOut;
+
 
 public class Graph {
     private final int V;
@@ -15,11 +19,34 @@ public class Graph {
             adj[v] = new Bag<Integer>();
     }
 
+    public Graph(In in){
+        this(in.readInt());
+        int E = in.readInt();
+        for(int i = 0; i < E; i++){
+            int v = in.readInt();
+            int w = in.readInt();
+            addEdge(v, w);
+        }
+    }
+
+    public Graph copy(){
+        int E_copy = E;
+        Bag<Integer>[] adj_copy = (Bag<Integer>[]) new Bag[V];
+        for(int i = 0; i < V; i++)
+            for(Integer j : adj[i])
+                adj_copy[i].add(j);
+        Graph G_copy = new Graph(V);
+        G_copy.E = E_copy;
+        G_copy.adj = adj_copy;
+        return G_copy;
+
+    }
+
     public int V(){ return V; }
 
     public int E(){ return E; }
 
-    // 形成自环时每个结点出现两次
+
     public void addEdge(int v, int w){
         adj[v].add(w);
         adj[w].add(v);
@@ -64,6 +91,12 @@ public class Graph {
             s += "\n";
         }
         return s;
+    }
+
+    public static void main(String[] args){
+        In in = new In(args[0]);
+        Graph G = new Graph(in);
+        StdOut.print(G);
     }
 
 

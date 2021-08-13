@@ -41,4 +41,17 @@ public class BreadthFirstPaths {
         return path;
 
     }
+
+    public int distTo(int v){
+//        int count = 0;
+//        while(v != s){
+//            v = edgeTo[v];
+//            count++;
+//        }
+//        return count;
+        int count = 0;
+        for(Integer i : pathTo(v))
+            count++;
+        return count;
+    }
 }

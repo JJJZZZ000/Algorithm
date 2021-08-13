@@ -11,6 +11,24 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
         vals = (Value[]) new Object[capacity];
     }
 
+    public BinarySearchST(){
+        BinarySearchST a = new BinarySearchST(1);
+        keys = (Key[]) a.keys;
+        vals = (Value[]) a.vals;
+        N = a.N;
+    }
+
+    private void resize(int cap){
+        BinarySearchST a = new BinarySearchST(cap);
+        for(int i = 0; i < keys.length; i++) {
+            a.keys[i] = keys[i];
+            a.vals[i] = vals[i];
+        }
+        keys = (Key[]) a.keys;
+        vals = (Value[]) a.vals;
+        N = a.N;
+    }
+
     public int size(){ return N;}
 
     public Value get(Key key){
@@ -21,15 +39,17 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
     }
 
     public void put(Key key, Value val){
-         int i = rank(key);
-         if(i < N && keys[i].compareTo(key)==0) {vals[i] = val; return;}
-         for(int j = N; j > i; j--){
-             keys[j] = keys[j-1];
-             vals[j] = vals[j-1];
-         }
-         keys[i] = key;
-         vals[i] = val;
-         N++;
+        if(N == keys.length) resize(N*2);
+
+        int i = rank(key);
+        if(i < N && keys[i].compareTo(key)==0) {vals[i] = val; return;}
+        for(int j = N; j > i; j--){
+            keys[j] = keys[j-1];
+            vals[j] = vals[j-1];
+        }
+        keys[i] = key;
+        vals[i] = val;
+        N++;
 
     }
 
@@ -87,6 +107,8 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
         keys[N-1] = null;
         vals[N-1] = null;
         N--;
+
+        if(N > 0 && N <= keys.length/8) resize(keys.length/8);
     }
 
     public boolean contains(Key key){ return keys[rank(key)].compareTo(key)==0;}
@@ -97,6 +119,10 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
         if(contains(hi))
             q.enqueue(keys[rank(hi)]);
         return q;
+    }
+
+    public Iterable<Key> keys(){
+        return keys(keys[0], keys[N-1]);
     }
 
     public static void main(String[] args){
