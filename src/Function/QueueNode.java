@@ -1,4 +1,4 @@
-package Sort.Exercise;
+package Function;
 
 import java.util.Iterator;
 

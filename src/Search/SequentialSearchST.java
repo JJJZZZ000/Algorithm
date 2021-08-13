@@ -27,7 +27,6 @@ public class SequentialSearchST<Key, Value>  {
     }
 
     public void put(Key key, Value val){
-        if(N == 0){ first.key = key; first.val = val; first.next = null; N++; return;};
         for(Node x = first; x != null; x = x.next)
             if (key.equals(x.key)) { x.val = val; return;}
         first = new Node(key, val, first);
