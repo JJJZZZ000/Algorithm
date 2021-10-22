@@ -30,6 +30,27 @@ public class BreadthFirstPaths {
         }
     }
 
+    public BreadthFirstPaths(Digraph G, int s){
+        marked = new boolean[G.V()];
+        edgeTo = new int[G.V()];
+        this.s  = s;
+        bfs(G, s);
+    }
+
+    private void bfs(Digraph G, int s){
+        QueueNode<Integer> queue = new QueueNode<Integer>();
+        marked[s] = true;
+        queue.enqueue(s);
+        while(!queue.isEmpty()){
+            int v = queue.dequeue();
+            for(int w : G.adj(v)){
+                marked[w] = true;
+                edgeTo[w] = v;
+                queue.enqueue(w);
+            }
+        }
+    }
+
     public boolean hasPathTo(int v){ return marked[v]; }
 
     public Iterable<Integer> pathTo(int v){

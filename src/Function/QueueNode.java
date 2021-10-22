@@ -19,6 +19,7 @@ public class QueueNode<Item> implements Iterable<Item>{
         }
     }
 
+
 //    public QueueNode(QueueNode<Item> p){
 //        first = new Node(p.first);
 //        last = new Node(p.last);

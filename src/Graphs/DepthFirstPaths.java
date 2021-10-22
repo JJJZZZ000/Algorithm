@@ -24,6 +24,23 @@ public class DepthFirstPaths {
         }
     }
 
+    public DepthFirstPaths(Digraph G, int s){
+        marked = new boolean[G.V()];
+        edgeTo = new int[G.V()];
+        this.s =s;
+        dfs(G, s);
+    }
+
+    public void dfs(Digraph G, int v){
+        marked[v] = true;
+        for(int w : G.adj(v)){
+            if(!marked[w]){
+                edgeTo[w] = w;
+                dfs(G, w);
+            }
+        }
+    }
+
     public boolean hasPathTo(int v){ return marked[v]; }
 
     public Iterable<Integer> pathTo(int v){
